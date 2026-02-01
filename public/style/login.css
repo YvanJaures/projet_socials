@@ -1,0 +1,158 @@
+/* Réinitialisation de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color:var(--text-main);
+}
+:root {
+    --primary-color: rgb(0, 145, 255)  ;
+    --primary-hover: rgb(0, 106, 255);
+    --bg-gradient:url(../assets/Desert\ Bloom\ –\ Arizona.png);
+    --glass-bg: transparent;
+    --text-main: white;
+    --text-muted: white;
+    --border-color: #eee;
+    --radius: 12px;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+img{
+    width: 30%;
+}
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 0.5px solid #eee;
+    background-color: transparent;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+input::placeholder{
+    color:var(--text-main);
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.8rem;
+}
+
+.forgot-pass {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.forgot-pass:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: var(--primary-hover);
+}
+
+.register-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+/* --- Ajustements pour la responsivité --- */
+
+.login-container {
+    background: transparent;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 0.5px solid white;
+    /* Utilisation de width et max-width pour la flexibilité */
+    width: 90%; 
+    max-width: 420px;
+    /* Animation fluide lors du redimensionnement */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Media Query pour les petits écrans (Smartphones) */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px; /* Réduction de l'espacement interne */
+        margin: 10px;
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Titre un peu plus petit sur mobile */
+    }
+
+    .form-options {
+        flex-direction: column; /* Aligne "Se souvenir de moi" et "Oublié" verticalement */
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
+/* Media Query pour les écrans très petits ou en mode paysage court */
+@media (max-height: 500px) {
+    body {
+        align-items: flex-start; /* Évite que le formulaire soit coupé en haut */
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}

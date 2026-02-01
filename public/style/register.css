@@ -1,0 +1,185 @@
+/* --- Variables de Design --- */
+:root {
+    --primary-color: rgb(0, 145, 255)  ;
+    --primary-hover: rgb(0, 106, 255);
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-bg: transparent;
+    --text-main: white;
+    --text-muted: white;
+    --border-color: #eee;
+    --radius: 12px;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(../assets/Desert\ Bloom\ –\ Arizona.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(5px);
+    padding: 20px;
+}
+
+/* --- Conteneur Principal --- */
+.login-container {
+    background: var(--glass-bg);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border:0.5px solid white;
+    width: 100%;
+    max-width: 420px; /* Taille par défaut pour connexion */
+    transition: transform 0.3s ease;
+}
+
+/* Largeur augmentée pour l'inscription */
+.register-container {
+    max-width: 550px;
+}
+
+/* --- Typographie --- */
+h2 {
+    text-align: center;
+    color: var(--text-main);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+p.subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* --- Formulaire --- */
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 0.5px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(118, 75, 162, 0.2);
+}
+
+/* --- Grille pour l'inscription (Champs côte à côte) --- */
+.input-row.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* --- Options & Bouton --- */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+img{
+    width: 30%;
+}
+input{
+    background-color: transparent;
+    color: var(--text-main);
+}
+input::placeholder{
+    color: var(--text-main);
+}
+.form-options input[type="checkbox"] {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.login-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* --- Liens de navigation --- */
+.register-link {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.register-link a, .forgot-pass, .terms a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover, .forgot-pass:hover {
+    text-decoration: underline;
+}
+P{
+    color: var(--primary-hover);
+}
+/* --- RESPONSIVITÉ --- */
+
+@media (max-width: 600px) {
+    .input-row.split {
+        grid-template-columns: 1fr; /* Pile les éléments sur mobile */
+        gap: 0;
+    }
+    
+    .login-container {
+        padding: 30px 20px;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription | Mon Application</title>
+    <link rel="stylesheet" href="./style/register.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container register-container">
+        <form class="login-form">
+            <h2>Créer un compte <sup> <img src="./assets/linkme_lin.png" alt=""></sup></h2>
+            <p>Rejoignez-nous en quelques clics</p>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="fullname">Nom d'utilisateur</label>
+                    <input type="text" id="fullname" placeholder="exemple156" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="exemple@mail.com" required>
+            </div>
+
+            <div class="input-row split">
+                <div class="input-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirmation</label>
+                    <input type="password" id="confirm-password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="form-options terms">
+                <label>
+                    <input type="checkbox" required> J'accepte les <a href="#">Conditions d'Utilisation</a>
+                </label>
+            </div>
+
+            <button type="submit" class="login-btn">S'inscrire</button>
+
+            <p class="register-link">
+                Déjà inscrit ? <a href="./login.html">Se connecter</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>

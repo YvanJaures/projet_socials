@@ -1,0 +1,201 @@
+:root{
+    --color_back:rgba(255, 255, 255, 0.053);
+    --primary_color: rgb(0, 145, 255)  ;
+    --primary_hover: rgb(0, 106, 255);
+    --error_message:rgb(243, 45, 45);
+    --background:url(../assets/Desert\ Bloom\ –\ Arizona.png);
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    background: url(../assets/Desert\ Bloom\ –\ Arizona.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    height: 100vh;
+    max-width: 1400px;
+    overflow: scroll;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+    position: absolute;
+    top: 0;
+    margin-top: 1rem;
+    gap: 30px;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.053);
+    backdrop-filter: blur(5px);
+    border: 0.5px solid white;
+    border-radius: 15px;
+    height: auto;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    max-width: 1440px;
+}
+img{
+    width: 150px;
+}
+i{
+    color: white;
+}
+.top{
+    flex: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 0.5px solid white;
+}
+.top .options{
+    flex: 10%;
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    padding: 5px;
+    gap: 15px;
+    width: 90%;
+    
+}
+#image_profile{
+    flex: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+#name_profile{
+    flex: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 0 0 0 0;
+    
+}
+#email_profile{
+    flex: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 0 0 0 0;
+    
+}
+.socials_list{
+    flex: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    li{
+        list-style: none;
+    }
+}
+ul{
+    list-style: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    unicode-bidi: normal;
+}
+.middle{
+    flex: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content:stretch;
+    align-items:center;
+    overflow-y: scroll;
+    gap: 5px;
+    width: 95%;
+    margin: 0 0 0 0;
+    padding: 10px;
+    border-bottom: 0.5px solid white;
+    li{
+        margin-left:12px;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        flex-grow: 1;
+        width: 95%;
+        border: 0.5px solid white;
+        border-radius: 15px;
+
+    }
+}
+
+.middle li i {
+    flex:   30%
+}
+.middle li P {
+    flex:   70%;
+    text-align: center;
+    text-wrap: wrap;
+    flex-wrap: wrap;
+}
+.bottom{
+    flex: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width:100%;
+    
+    margin: 0 0 0 0;
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+a:hover,li:hover,i,select,input[Type="submit"],input[Type="button"]{
+    cursor: pointer;
+}
+.error{
+    text-align: center;
+    color: var(--error_message);
+}
+@media(max-width:768px){
+    main{
+        width: 95%;
+        overflow: hidden;
+    }
+}
+@media(min-width:1440px){
+    html{
+        font-size: 2.5rem;
+    }
+    input::placeholder{
+        font-size: 1rem;
+    }
+    main{
+        width: 100%;
+        margin-left: 50%;
+        margin-right: 10%;
+    }
+    img{
+        width: 9rem;
+    }
+}
