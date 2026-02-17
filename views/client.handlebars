@@ -1,115 +1,81 @@
 <main>
-        <div class="top">
-            <span class="options">
-                <i class="fa fa-moon"></i>
-                <i class="fa fa-share"></i>
-            </span>
-            <span class="profil_pic">
-                <img src="../assets/avatar_prof_1.png" alt="image de profile" id="image_profile"> 
-                <i class="fa fa-pen" id="pen"></i>  
-            </span>
-            <h2 id="name_profile">Nom utilisateur</h2>
-            <h4 id="email_profile">email utilisateur</h4>
-            <ul class="socials_list">
-                <li><i class="fa fa-facebook"></i></li>
-                <li><i class="fa fa-instagram"></i></li>
-                <li><i class="fa fa-youtube"></i></li>
-                <li><i class="fa-brands fa-x-twitter"></i></li>
-            </ul>
-            <form class="add">
-                <span class="add_btn">
-                    <h3>Ajouter un lien</h3>
-                    <input type="submit" value="+">
-                </span>
-                <select name="réseaux sociaux" id="socials">
-                    <option value="Facebook"><i class="fa fa-facebook"></i>Facebook</option>
-                    <option value="Facebook">Instagram</option>
-                    <option value="Facebook">Youtube</option>
-                    <option value="Facebook">Tiktok</option>
-                </select>
-                <input type="text" name="titre" id="title" placeholder="Titre" required>
-                <input type="text" name="lien" id="link" placeholder="Coller le lien ici" required>
-                <p class="error">une erreure s'est produite</p>
-            </form>
-            <section>
-                <table>
-                <caption>Liste de liens</caption> 
-                <thead>
-                        <th>Selectionner</th>
-                        <th>Média</th>
-                        <th>Titre</th>
-                        <th>Lien</th>
-                </thead>
-                <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Facebook</td>
-                            <td>Compte Facebook</td>
-                            <td>facebook.com</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Facebook</td>
-                            <td>Compte Facebook</td>
-                            <td>facebook.com</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Facebook</td>
-                            <td>Compte Facebook</td>
-                            <td>facebook.com</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>Facebook</td>
-                            <td>Compte Facebook</td>
-                            <td>facebook.com</td>
-                        </tr>
-                </tbody>
-                </table>
-                <div class="edit_input">
-                    Edition
-                    <input type="text" name="edition titre" id="edit_title" class="edit" placeholder="Titre">
-                    <input type="text" name="edition lien" id="edit_link" class="edit" placeholder="Lien">
-                </div>
-                <div class="validate">
-                    <input type="button" name="valider edition" id="modify" value="MODIFIER">
-                    <input type="button" name="supprimer lien" id="delete" value="SUPPRIMER">
-                </div>
-            </section>
-            <p class="error">une erreure s'est produite</p>
-        </div>
-        <ul class="middle">
-            <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li>
-             <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li> <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            
+    <div class="top">
+        <span class="options">
+            <i class="fa fa-moon"></i>
+            <i class="fa fa-share"></i>
+        </span>
+        <span class="profil_pic">
+            <img src={{user.prof_img}} alt="image de profile" id="image_profile"> 
+            <i class="fa fa-pen" id="pen"></i>  
+        </span>
+        <h2 id="name_profile">{{user.name}} {{user.prenom}}</h2>
+        <h4 id="email_profile">{{user.email}}</h4>
+        <ul class="socials_list">
+            {{#each links}}
+                <li>
+                    <a href="{{this.url}}">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
+                </li>
+            {{/each}}
         </ul>
-        <div class="bottom">
-            <p>généré avec <a href="/login">linkme</a>, @allrightsreserved</p>
-        </div>
-    </main>
+        <form class="add">
+            <span class="add_btn">
+                <h3>Ajouter un lien</h3>
+                <input type="submit" value="+">
+            </span>
+            <select name="réseaux sociaux" id="socials">
+                {{#each icons}}
+                    <option value={{this.title}}>{{this.title}}</option>
+                {{/each}}
+            </select>
+            <input type="text" name="titre" id="title" placeholder="Titre" required>
+            <input type="text" name="lien" id="link" placeholder="Coller le lien ici" required>
+            <p class="error">une erreure s'est produite</p>
+        </form>
+        <section>
+            <table>
+            <caption>Liste de liens</caption> 
+            <thead>
+                    <th>Selectionner</th>
+                    <th>Média</th>
+                    <th>Titre</th>
+                    <th>Lien</th>
+            </thead>
+            <tbody>
+                    {{#each links}}
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>{{this.icon}}</td>
+                            <td>{{this.title}}</td>
+                            <td>{{this.url}}</td>
+                        </tr>
+                    {{/each}}
+            </tbody>
+            </table>
+            <div class="edit_input">
+                Edition
+                <input type="text" name="edition titre" id="edit_title" class="edit" placeholder="Titre">
+                <!--<input type="text" name="edition lien" id="edit_link" class="edit" placeholder="Lien">-->
+            </div>
+            <div class="validate">
+                <input type="button" name="valider edition" id="modify" value="MODIFIER">
+                <input type="button" name="supprimer lien" id="delete" value="SUPPRIMER">
+            </div>
+        </section>
+        <p class="error">une erreure s'est produite</p>
+    </div>
+    <ul class="middle">
+            {{#each links}}
+            <li class="link">
+                <a href="{{this.url}}">
+                    <i class="fa fa-{{this.icon}}"></i>
+                    <p>{{this.title}}</p>
+                </a>
+            </li>
+            {{/each}}
+        </ul>
+    <div class="bottom">
+        <p>généré avec <a href="/login">linkme</a>, @allrightsreserved</p>
+    </div>
+</main>

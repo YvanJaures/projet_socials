@@ -4,61 +4,30 @@
                 <i class="fa fa-moon"></i>
                 <i class="fa fa-share"></i>
             </span>
-            <img src="./assets/avatar_prof_1.png" alt="image de profile" id="image_profile">
-            <h2 id="name_profile">Nom utilisateur</h2>
-            <h4 id="email_profile">email utilisateur</h4>
+            <img src={{user.prof_img}} alt="image de profile" id="image_profile">
+            <h2 id="name_profile">{{user.name}} {{user.prenom}}</h2>
+            <h4 id="email_profile">{{user.email}}</h4>
             <ul class="socials_list">
-                <li><i class="fa fa-facebook"></i></li>
-                <li><i class="fa fa-instagram"></i></li>
-                <li><i class="fa fa-youtube"></i></li>
-                <li><i class="fa-brands fa-x-twitter"></i></li>
+                {{#each links}}
+                <li>
+                    <a href="{{this.url}}">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
+                </li>
+                {{/each}}
             </ul>
         </div>
         <ul class="middle">
+            {{#each links}}
             <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
+                <a href="{{this.url}}">
+                    <i class="fa fa-{{this.icon}}"></i>
+                    <p>{{this.title}}</p>
+                </a>
             </li>
-             <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li> <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-             <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li> <li class="link">
-                <i class="fa fa-instagram"></i>
-                <p>Compte Instagram </p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
-            <li class="link">
-                <i class="fa fa-facebook"></i>
-                <p>Compte facebook</p>
-            </li>
+            {{/each}}
         </ul>
         <div class="bottom">
-            <p>généré avec <a href="/login">linkme</a>, @allrightsreserved</p>
+            <p>généré avec <a href="/login"><img src="../assets/linkme_lin.png" alt="logo linkme" class="logo"></a>, @allrightsreserved</p>
         </div>
     </main>

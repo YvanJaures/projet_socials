@@ -134,18 +134,20 @@ ul{
     li{
         margin-left:12px;
         list-style: none;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        flex-grow: 1;
         width: 95%;
         border: 0.5px solid white;
         border-radius: 15px;
 
     }
 }
-
+.middle li a {
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 1;
+}
 .middle li i {
     flex:   30%
 }
@@ -176,6 +178,9 @@ a:hover,li:hover,i,select,input[Type="submit"],input[Type="button"]{
 .error{
     text-align: center;
     color: var(--error_message);
+}
+.logo{
+    width:80px;
 }
 @media(max-width:768px){
     main{

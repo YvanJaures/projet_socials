@@ -8,7 +8,7 @@ export function connecterPage(request,response,next){
     if(request.user){
         return next()
     }
-    response.redirect('/')
+    response.redirect('/login')
 }
 /**
  * 

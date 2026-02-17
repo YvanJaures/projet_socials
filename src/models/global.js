@@ -8,17 +8,26 @@ export async function getLinks(){
     return await prisma.link.findMany()
 }
 export async function getUsers(){
-    const list=await prisma.user.findMany()
-    const users=list.map(user=>({user_name:user.user_name,
-        name:user.name,
-        prenom:user.prenom,
-        created:user.created,
-        prof_img:user.prof_img,
-        email:user.email}))
-    return users
+    return await prisma.user.findMany({
+        select:{
+            user_name:true,
+            name:true,
+            prenom:true,
+            created:true,
+            prof_img:true,
+            email:true,
+            Link:{
+                select:{
+                    title:true,
+                    icon:true,
+                    url:true
+                }
+            }
+        }
+    })
 }
 export async function getUserByName(user_name){
-    return await prisma.user.findUnique({
+    const user= await prisma.user.findUnique({
         where:{
             user_name:user_name
         }
@@ -31,15 +40,15 @@ export async function getUserById(id_user){
         }
     })
 }
-export async function addUser(user_name,name,prenom,created,prof_img,email,password){
+export async function addUser(user_name,name,prenom,prof_img,email,password){
     const hash_password=await bcrypt.hash(password,10)
-    const date=new Date(created)
+    const date=new Date()
     await prisma.user.create({
         data:{
             user_name:user_name,
             name:name,
             prenom:prenom,
-            created:created,
+            created:date.toLocaleDateString(),
             prof_img:prof_img,
             email:email,
             password:hash_password

@@ -12,6 +12,9 @@ import memorystore from 'memorystore'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import router from './src/routes/global.js'
+import { getIcons, getUsers } from './src/models/global.js'
+import { request } from 'http'
+import { connecterPage } from './src/middlewares/auth.js'
 // Defini si nous sommes en production ou en developpement
 const dev = process.env.NODE_ENV !== "production";
 
@@ -59,17 +62,29 @@ const publicPath = process.env.NODE_ENV === 'production'
 
 app.use(express.static(publicPath));
 
-app.get('/client_page', async (request, response) => {
-    response.status(200).render('accueil', {
-        titre: 'Accueil',
-        scripts: ['https://kit.fontawesome.com/2dd86e731d.js']
-    });
-});
-app.get('/', async (request, response) => {
+const users=await getUsers()
+for(const user of users){
+    app.get(`/user/name=${user.user_name}`,async(request,response)=>{
+        response.status(200).render('accueil',{
+            titre: `${user.name.toUpperCase()}`,
+            scripts:['https://kit.fontawesome.com/2dd86e731d.js'],
+            links:user.Link,
+            user:user
+        })
+    })
+    console.log(user.Link)
+}
+
+/**/
+app.get('/',connecterPage, async (request, response) => {
+    const icons=await getIcons()
     response.status(200).render('client', {
         titre: 'Socials',
         styles: ['/style/client.css'],
-        scripts: ['https://kit.fontawesome.com/2dd86e731d.js']
+        scripts: ['https://kit.fontawesome.com/2dd86e731d.js'],
+        links:request.user.link,
+        user:request.user,
+        icons:icons
     });
 });
 

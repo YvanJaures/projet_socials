@@ -59,7 +59,6 @@ export const addUserC=async(request,response)=>{
     try{
         await addUser(request.body.user_name,
             request.body.prenom,
-            request.body.created,
             request.body.prof_img,
             request.body.email,
             request.body.password)
