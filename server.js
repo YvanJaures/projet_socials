@@ -14,7 +14,7 @@ import { fileURLToPath } from 'url';
 import router from './src/routes/global.js'
 import { getIcons, getUsers } from './src/models/global.js'
 import { request } from 'http'
-import { connecterPage } from './src/middlewares/auth.js'
+import { connecterPage, deConnecterPage } from './src/middlewares/auth.js'
 // Defini si nous sommes en production ou en developpement
 const dev = process.env.NODE_ENV !== "production";
 
@@ -67,12 +67,11 @@ for(const user of users){
     app.get(`/user/name=${user.user_name}`,async(request,response)=>{
         response.status(200).render('accueil',{
             titre: `${user.name.toUpperCase()}`,
-            scripts:['https://kit.fontawesome.com/2dd86e731d.js'],
+            scripts:['https://kit.fontawesome.com/2dd86e731d.js','/scripts/accueil.js'],
             links:user.Link,
             user:user
         })
     })
-    console.log(user.Link)
 }
 
 /**/
@@ -81,26 +80,26 @@ app.get('/',connecterPage, async (request, response) => {
     response.status(200).render('client', {
         titre: 'Socials',
         styles: ['/style/client.css'],
-        scripts: ['https://kit.fontawesome.com/2dd86e731d.js'],
-        links:request.user.link,
+        scripts: ['https://kit.fontawesome.com/2dd86e731d.js','/scripts/client.js'],
+        links:request.user.Link,
         user:request.user,
         icons:icons
     });
 });
 
-app.get('/login', async (request, response) => {
+app.get('/login',deConnecterPage, async (request, response) => {
     response.status(200).render('login', {
         titre: 'Log in',
         styles: ['/style/login.css'],
-        scripts: ['https://kit.fontawesome.com/2dd86e731d.js']
+        scripts: ['https://kit.fontawesome.com/2dd86e731d.js','/scripts/login.js']
     });
 });
 
-app.get('/signup', async (request, response) => {
+app.get('/signup',deConnecterPage, async (request, response) => {
     response.status(200).render('register', {
         titre: 'Sign up',
         styles: ['/style/register.css'],
-        scripts: ['https://kit.fontawesome.com/2dd86e731d.js']
+        scripts: ['https://kit.fontawesome.com/2dd86e731d.js','/scripts/register.js']
     });
 });
 

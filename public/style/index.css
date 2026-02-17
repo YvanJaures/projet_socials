@@ -176,8 +176,13 @@ a:hover,li:hover,i,select,input[Type="submit"],input[Type="button"]{
     cursor: pointer;
 }
 .error{
+    display: none;
     text-align: center;
     color: var(--error_message);
+    border: 1px solid red;
+}
+.error.show{
+    display: block;
 }
 .logo{
     width:80px;

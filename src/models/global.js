@@ -27,9 +27,25 @@ export async function getUsers(){
     })
 }
 export async function getUserByName(user_name){
-    const user= await prisma.user.findUnique({
+    return await prisma.user.findUnique({
         where:{
             user_name:user_name
+        },
+        select:{
+            user_name:true,
+            name:true,
+            prenom:true,
+            created:true,
+            prof_img:true,
+            email:true,
+            password:true,
+            Link:{
+                select:{
+                    title:true,
+                    icon:true,
+                    url:true
+                }
+            }
         }
     })
 }
