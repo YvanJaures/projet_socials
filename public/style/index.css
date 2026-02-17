@@ -3,7 +3,7 @@
     --primary_color: rgb(0, 145, 255)  ;
     --primary_hover: rgb(0, 106, 255);
     --error_message:rgb(243, 45, 45);
-    --background:url(../assets/Desert\ Bloom\ –\ Arizona.png);
+    --background:url(/assets/Desert_Bloom_Arizona.png);
 }
 html{
     scroll-behavior: smooth;
@@ -13,7 +13,7 @@ body{
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    background: url(../assets/Desert\ Bloom\ –\ Arizona.png);
+    background: url(/assets/Desert_Bloom_Arizona.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment:fixed;

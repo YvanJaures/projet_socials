@@ -1,0 +1,155 @@
+import bcrypt from 'bcrypt'
+import {prisma} from '../prisma.js'
+
+export async function getIcons(){
+    return await prisma.icon.findMany()
+} 
+export async function getLinks(){
+    return await prisma.link.findMany()
+}
+export async function getUsers(){
+    const list=await prisma.user.findMany()
+    const users=list.map(user=>({user_name:user.user_name,
+        name:user.name,
+        prenom:user.prenom,
+        created:user.created,
+        prof_img:user.prof_img,
+        email:user.email}))
+    return users
+}
+export async function getUserByName(user_name){
+    return await prisma.user.findUnique({
+        where:{
+            user_name:user_name
+        }
+    })
+}
+export async function getUserById(id_user){
+    return await prisma.user.findUnique({
+        where:{
+            id_user:id_user
+        }
+    })
+}
+export async function addUser(user_name,name,prenom,created,prof_img,email,password){
+    const hash_password=await bcrypt.hash(password,10)
+    const date=new Date(created)
+    await prisma.user.create({
+        data:{
+            user_name:user_name,
+            name:name,
+            prenom:prenom,
+            created:created,
+            prof_img:prof_img,
+            email:email,
+            password:hash_password
+        }
+    });
+}
+export async function updateUser(user_name,alias,new_info){
+    switch(alias){
+        case "name":
+            await prisma.user.update({
+                where:{
+                    user_name:user_name
+                },
+                data:{
+                    name:new_info
+                }
+            });
+            break;
+        case "prenom":
+            await prisma.user.update({
+                where:{
+                    user_name:user_name
+                },
+                data:{
+                    prenom:new_info
+                }
+            });
+            break;
+        case "email":
+            await prisma.user.update({
+                where:{
+                    user_name:user_name
+                },
+                data:{
+                    email:new_info
+                }
+            });
+            break;
+        case "prof_img":
+            await prisma.user.update({
+                where:{
+                    user_name:user_name
+                },
+                data:{
+                    prof_img:new_info
+                }
+            });
+            break;
+        default:
+            await prisma.user.update({
+                where:{
+                    user_name:user_name
+                },
+                data:{
+                    phone:new_info
+                }
+            });
+            break;
+    }
+    
+}
+export async function updatePassword(user_name,old_password,new_password){
+    const client=await getUserByName(user_name)
+    if(await bcrypt.compare(old_password,client.password)){
+
+        await prisma.user.update({
+            where:{
+                user_name:user_name
+            },
+            data:{
+                password:await bcrypt.hash(new_password,10)
+            }
+        })
+        return "ok"
+    }
+    else{
+        return "mauvais_password"
+    }
+}
+export async function addLink(title,url,icon,id_user){
+    await prisma.link.create({
+        data:{
+            title:title,
+            url:url,
+            icon:icon,
+            id_user:id_user
+        }
+    })
+}
+export async function updateLink(id,title){
+    await prisma.link.update({
+        where:{
+            id:id
+        },
+        data:{
+            title:title
+        }
+    })
+}
+export async function deleteUser(user_name){
+    await prisma.user.delete({
+        where:{
+            user_name:user_name
+        }
+    })
+}
+export async function deleteLink(id){
+    await prisma.link.delete({
+        where:{
+            id:id
+        }
+    })
+}

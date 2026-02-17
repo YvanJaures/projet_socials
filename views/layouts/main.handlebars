@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/linkme_bulk.png" type="image/x-icon" />
+    
+    <link rel="stylesheet" href="../style/index.css">
+    <script src="https://kit.fontawesome.com/2dd86e731d.js" crossorigin="anonymous" defer></script>
+    {{#each styles}}
+         <link rel="stylesheet" href="{{this}}">
+    {{/each}}
+    {{#each scripts}}
+        <script type="module" src="{{this}}" defer></script> 
+    {{/each}}
+    <title> {{titre}}</title>
+</head>
+<body data-page="{{data_page}}">
+    {{{body}}}
+</body>
+</html>

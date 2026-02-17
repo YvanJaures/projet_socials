@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+}
+model User{
+  id_user       Int @id @default(autoincrement())
+  user_name     String? @unique
+  name          String?
+  prenom        String?
+  created       DateTime?
+  prof_img      String?
+  email         String?
+  password      String?
+  Link          Link[]
+
+}
+
+model Icon{
+  id            Int @id @default(autoincrement())
+  title         String?
+  icon          String?
+}
+
+model Link{
+  id            Int       @id @default(autoincrement())
+  title         String?
+  url           String?
+  icon          String?
+  id_user       Int?
+  User          User?     @relation(fields:[id_user],references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_User_Link")
+}
