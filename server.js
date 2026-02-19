@@ -13,7 +13,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import router from './src/routes/global.js'
 import { getIcons, getUsers } from './src/models/global.js'
-import { request } from 'http'
 import { connecterPage, deConnecterPage } from './src/middlewares/auth.js'
 // Defini si nous sommes en production ou en developpement
 const dev = process.env.NODE_ENV !== "production";
@@ -27,10 +26,11 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://kit.fontawesome.com"],
+      scriptSrc: ["'self'", "https://kit.fontawesome.com/2dd86e731d.js"],
     },
   })
-);*/
+);
+*/
 app.use(cors())
 app.use(compression())
 app.use(express.json())
@@ -64,10 +64,10 @@ app.use(express.static(publicPath));
 
 const users=await getUsers()
 for(const user of users){
-    app.get(`/user/name=${user.user_name}`,async(request,response)=>{
+    app.get(`/${user.user_name}`,async(request,response)=>{
         response.status(200).render('accueil',{
             titre: `${user.name.toUpperCase()}`,
-            scripts:['https://kit.fontawesome.com/2dd86e731d.js','/scripts/accueil.js'],
+            scripts:['/scripts/accueil.js'],
             links:user.Link,
             user:user
         })

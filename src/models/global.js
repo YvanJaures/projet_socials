@@ -18,6 +18,7 @@ export async function getUsers(){
             email:true,
             Link:{
                 select:{
+                    id:true,
                     title:true,
                     icon:true,
                     url:true
@@ -32,6 +33,7 @@ export async function getUserByName(user_name){
             user_name:user_name
         },
         select:{
+            id_user:true,
             user_name:true,
             name:true,
             prenom:true,
@@ -41,6 +43,7 @@ export async function getUserByName(user_name){
             password:true,
             Link:{
                 select:{
+                    id:true,
                     title:true,
                     icon:true,
                     url:true
@@ -145,7 +148,7 @@ export async function updatePassword(user_name,old_password,new_password){
     }
 }
 export async function addLink(title,url,icon,id_user){
-    await prisma.link.create({
+    return await prisma.link.create({
         data:{
             title:title,
             url:url,

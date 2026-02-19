@@ -42,10 +42,10 @@
                     <th>Titre</th>
                     <th>Lien</th>
             </thead>
-            <tbody>
+            <tbody id="tab-body">
                     {{#each links}}
-                        <tr>
-                            <td><input type="checkbox"></td>
+                        <tr class="info-line" id="{{this.id}}">
+                            <td><input type="checkbox" class="check-line"></td>
                             <td>{{this.icon}}</td>
                             <td>{{this.title}}</td>
                             <td>{{this.url}}</td>
@@ -67,7 +67,7 @@
     </div>
     <ul class="middle">
             {{#each links}}
-            <li class="link">
+            <li class="link" id="li{{this.id}}">
                 <a href="{{this.url}}">
                     <i class="fa fa-{{this.icon}}"></i>
                     <p>{{this.title}}</p>
@@ -76,6 +76,6 @@
             {{/each}}
         </ul>
     <div class="bottom">
-        <p>généré avec <a href="/login">linkme</a>, @allrightsreserved</p>
+        <p>généré avec <a href="/login"><img src="../assets/linkme_lin.png" alt="logo linkme" class="logo"></a> @allrightsreserved</p>
     </div>
 </main>

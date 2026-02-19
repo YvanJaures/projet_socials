@@ -5,6 +5,9 @@ import {getUserByName,getUserById,addUser,
     updateUser,updatePassword,addLink,updateLink,
     deleteUser,deleteLink,getIcons,getLinks,getUsers} from '../models/global.js'
 
+export const stream=async (request, response) => {
+    response.initStream();    
+}
 export const getIconsC=async(request,response)=>{
     try{
         const icons=await getIcons()
@@ -33,6 +36,14 @@ export const getUsersC=async(request,response)=>{
     catch(error){
         response.status(400).end()
         console.log(error)
+    }
+}
+export const getUser=async(request,response)=>{
+    try{
+        const user=request.user
+        response.status(200).json(user)
+    }catch(error){
+        response.status(400).json({error})
     }
 }
 export const getUserByNameC=async(request,response)=>{
@@ -95,10 +106,17 @@ export const updatePasswordC=async(request,response)=>{
 }
 export const addLinkC=async(request,response)=>{
     try{
-        await addLink(request.body.title,
+        const link=await addLink(request.body.title,
             request.body.url,
             request.body.icon,
             request.body.id_user)
+        response.pushJson({
+            data:{id:link.id,
+                title:request.body.title,
+                url:request.body.url,
+                icon:request.body.icon,
+                id_user:request.body.id_user}
+        },'added-link')
         response.status(201).end()
     }
     catch(error){
@@ -110,6 +128,11 @@ export const updateLinkC=async(request,response)=>{
     try{
         await updateLink(request.body.id,
             request.body.title)
+        response.pushJson({
+            data:{id:request.body.id,
+                title:request.body.title
+            }
+        },'updated-link')
         response.status(200).end()
     }
     catch(error){
@@ -130,6 +153,9 @@ export const deleteUserC=async(request,response)=>{
 export const deleteLinkC=async(request,response)=>{
     try{
         await deleteLink(request.body.id)
+        response.pushJson({
+            data:{id:request.body.id}
+        },'deleted-link')
         response.status(200).end()
     }
     catch(error){

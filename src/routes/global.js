@@ -5,9 +5,11 @@ import {deConnecterApi,connecterApi} from '../middlewares/auth.js'
 const router=express.Router()
 
 // routes
+router.get('/stream',globalController.stream)
 router.get('/icons',globalController.getIconsC)
 router.get('/links',globalController.getLinksC)
 router.get('/users',globalController.getUsersC)
+router.get('/user',globalController.getUser)
 router.get('/user/name',globalController.getUserByNameC)
 router.get('/user/id',globalController.getUserByIdC)
 
