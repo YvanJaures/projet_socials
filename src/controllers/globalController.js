@@ -85,6 +85,12 @@ export const updateUserC=async(request,response)=>{
         await updateUser(request.body.user_name,
             request.body.alias,
             request.body.new_info)
+            response.pushJson({
+            data:{user_name:request.body.user_name,
+                alias:request.body.alias,
+                new_info:request.body.new_info
+            }
+        },'updated-user')
         response.status(200).end()
     }
     catch(error){

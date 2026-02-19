@@ -75,7 +75,7 @@ export async function addUser(user_name,name,prenom,prof_img,email,password){
     });
 }
 export async function updateUser(user_name,alias,new_info){
-    switch(alias){
+    switch(alias.toLowerCase()){
         case "name":
             await prisma.user.update({
                 where:{
@@ -154,6 +154,29 @@ export async function addLink(title,url,icon,id_user){
             url:url,
             icon:icon,
             id_user:id_user
+        }
+    })
+}
+export async function addImage(name,data,type,id_user){
+    const index=prisma.image.create({
+        data:{
+            name:name,
+            data:data,
+            type:type,
+            id_user:id_user
+        }
+    })
+    return index
+}
+export async function updateImage(name,data,type,id_user){
+    prisma.image.update({
+        where:{
+            id_user:id_user
+        },
+        data:{
+            name:name,
+            data:data,
+            type:type
         }
     })
 }

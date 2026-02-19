@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt'
 import {prisma} from '../prisma.js'
-
+import fs from 'fs'
+import path from 'path';
+/*
 async function seed() {
   try {
     console.log('🌱 Début du seeding...');
@@ -77,3 +79,47 @@ async function seed() {
 }
 
 seed();
+*/
+async function uploadImages() {
+  try {
+    // Liste des images à uploader
+    const imageData={
+      name:'avatar_prof_1.png',
+    }
+
+      // Lire l'image depuis assets
+      const imagePath = path.join(process.cwd(), 'public', 'assets', imageData.name);
+      
+      // Vérifier si le fichier existe
+      if (!fs.existsSync(imagePath)) {
+        console.error(`❌ Image not found: ${imagePath}`);
+      }
+
+      // Lire l'image et convertir en base64
+      const imageBuffer = fs.readFileSync(imagePath);
+      const base64Image = imageBuffer.toString('base64');
+      
+      // Détecter le type d'image
+      const imageType = imageData.name.endsWith('.png') ? 'image/png' : 'image/jpeg';
+
+      // Créer le produit avec l'image
+      const produit = await prisma.image.create({
+        data: {
+          name:'profile',
+          data: base64Image,
+          type: imageType,
+          id_user:1
+        }
+      });
+
+    
+
+    console.log('\n🎉 All images uploaded successfully!');
+  } catch (error) {
+    console.error('❌ Error uploading images:', error);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+uploadImages();

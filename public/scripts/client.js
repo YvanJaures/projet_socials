@@ -1,5 +1,7 @@
-import { texteEstValide } from "./validation.js"
+import { texteEstValide,emailEstValide } from "./validation.js"
 
+const imgI=document.getElementById('prof-change')
+const imgP=document.getElementById('image_profile')
 const form=document.getElementsByClassName('add')[0]
 const titleI=document.getElementById('title')
 const linkI=document.getElementById('link')
@@ -12,23 +14,60 @@ const tab=document.getElementById('tab-body')
 const editI=document.getElementById('edit_title')
 const modifyB=document.getElementById('modify')
 const deleteB=document.getElementById('delete')
+
+const modifyUserB=document.getElementById('update-button')
+const formUser=document.getElementsByClassName('update-user')[0]
+const modifyUserI=document.getElementById('update')
+const selectUser=document.getElementById('updated-alias')
+
 const client=await getUser()
-  console.log(client)
 const source=new EventSource('/api/stream')
 let id=0
 let selected={}
+
+const nightMode=document.getElementsByClassName('fa-moon')[0]
+const share=document.getElementsByClassName('fa-share')[0]
+let mode='day'
+nightMode.addEventListener('click',(e)=>{
+    if(mode==='day'){
+        mode='night'
+        document.getElementsByTagName('body')[0].style.setProperty('background','url(/assets/Desert_Bloom_night.png)')
+        document.getElementsByTagName('body')[0].style.setProperty('background-size','cover')
+        document.getElementsByTagName('body')[0].style.setProperty('background-repeat','no-repeat')
+        document.getElementsByTagName('body')[0].style.setProperty('background-attachment','fixed')
+        return
+    }
+    mode='day'
+    document.getElementsByTagName('body')[0].style.setProperty('background','url(/assets/Desert_Bloom_Arizona.png)')
+    document.getElementsByTagName('body')[0].style.setProperty('background-size','cover')
+    document.getElementsByTagName('body')[0].style.setProperty('background-repeat','no-repeat')
+    document.getElementsByTagName('body')[0].style.setProperty('background-attachment','fixed')
+})
+share.addEventListener('click',async (e)=>{
+    if(client){
+        await navigator.clipboard.writeText(window.location.host+'/'+client.user_name)
+            alert('copier')
+        return
+    }
+    await navigator.clipboard.writeText(window.location.href)
+    
+})
+
+
+
 for(let i=0;i<checksI.length;i++){
-    console.log(checksI[i])
-    console.log(client)
 
     checksI[i].addEventListener('change',()=>{
         if(checksI[i].checked){
             selected= lignesI[i]
             editI.value=lignesI[i].children[2].textContent
-            console.log(selected)
         }
     })
 }
+modifyUserB.addEventListener('click',(e)=>{
+    formUser.classList.add('show')
+    modifyUserB.classList.add('hide')
+})
 deleteB.addEventListener('click',(e)=>{
     deleteLink()
 })
@@ -37,10 +76,27 @@ modifyB.addEventListener('click',(e)=>{
 })
 form.addEventListener('submit',(e)=>{
     e.preventDefault()
-    console.log('heyh')
     addLink()
 })
-
+formUser.addEventListener('submit',(e)=>{
+    e.preventDefault()
+    updateUser()
+})
+imgI.addEventListener('change',()=>{
+    e.preventDefault()
+    const img=imgI.files[0]
+    if(!img){
+        return
+    }
+    if(!img.type.startsWith('image/')){
+        return
+    }
+    const reader=new FileReader()
+    reader.onloadend=async ()=>{
+        const base64Image=reader.result.split(',')[1]
+    }
+    const url=URL.createObjectURL(img)
+})
 source.addEventListener('added-link',(e)=>{
     const data=(JSON.parse(e.data)).data
     tab.innerHTML+=`
@@ -70,10 +126,22 @@ source.addEventListener('updated-link',(e)=>{
     document.getElementById(`${data.id}`).children[2].textContent=data.title
     document.getElementById(`li${data.id}`).children[0].children[1].textContent=data.title
 })
+source.addEventListener('updated-user',(e)=>{
+    const data=(JSON.parse(e.data)).data
+    switch(data.alias){
+        case 'email':
+            document.getElementById('email_profile').textContent=data.new_info
+            break
+        case 'prenom':
+            document.getElementById('name_profile').textContent=client.name+' '+data.new_info
+            break
+        default:
+            document.getElementById('name_profile').textContent=data.new_info+' '+client.prenom
+            break
+    }
+})
 async function deleteLink(){
-    console.log(selected)
     id=Number.parseInt(selected.id)
-    console.log(id)
     const response=await fetch('/api/link/delete',{
         method:'DELETE',
         headers:{'Content-Type':'application/json'},
@@ -83,22 +151,22 @@ async function deleteLink(){
         alert('suppression')
     }
 }
-async function getUser(){
+export async function getUser(){
     const response=await fetch('/api/user')
     if(response.ok){
         return await response.json()
     }
 }
 async function addLink(){
-    errorsI[0].classList.remove('show')
+    errorsI[2].classList.remove('show')
     const title=titleI.value
     const url=linkI.value
     const icon=selects.value.toLowerCase()
     const id_user=client.id_user
   
     if(!texteEstValide(title) || !texteEstValide(url)){
-        errorsI[0].textContent="valeure incorrecte"
-        errorsI[0].classList.add('show')
+        errorsI[2].textContent="valeure incorrecte"
+        errorsI[2].classList.add('show')
         return
     }
     const response=await  fetch('/api/link/add',{
@@ -113,10 +181,14 @@ async function addLink(){
     }
 }
 async function updateLink(){
+    errorsI[3].classList.remove('show')
     const id=Number.parseInt(selected.id)
-    console.log(selected)
-    console.log(id)
     const title=editI.value
+    if(!texteEstValide(title)){
+        errorsI[3].textContent="valeure incorrecte"
+        errorsI[3].classList.add('show')
+        return
+    }
     const response=await fetch('/api/link/update',{
         method:'PATCH',
         headers:{'Content-Type':'application/json'},
@@ -127,6 +199,39 @@ async function updateLink(){
         editI.value=""
     }
 }
+async function updateUser(){
+    errorsI[4].classList.remove('show')
+    const alias=    selectUser.value
+    const new_info= modifyUserI.value
+    const user_name=client.user_name
+    if(!texteEstValide(new_info)){
+        errorsI[4].textContent='Valeure incorrecte'
+        errorsI[4].classList.add('show')
+        return
+    }
+    if(alias==='email'){
+        if(!emailEstValide(new_info)){
+
+            errorsI[4].textContent='email incorrecte'
+            errorsI[4].classList.add('show')
+            return 
+        }
+    }
+    const response=await fetch('/api/user/update',{
+        method:'PATCH',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({user_name,alias,new_info})
+    })
+    if(response.ok){
+        alert('modifier user')
+        modifyUserB.classList.remove('hide')
+        formUser.classList.remove('show')
+        selectUser.value=""
+        modifyUserI.value=""
+
+    }
+}
+
 
 
 

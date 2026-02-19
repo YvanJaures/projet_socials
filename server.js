@@ -80,7 +80,7 @@ app.get('/',connecterPage, async (request, response) => {
     response.status(200).render('client', {
         titre: 'Socials',
         styles: ['/style/client.css'],
-        scripts: ['https://kit.fontawesome.com/2dd86e731d.js','/scripts/client.js'],
+        scripts: ['/scripts/client.js'],
         links:request.user.Link,
         user:request.user,
         icons:icons

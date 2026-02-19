@@ -6,10 +6,15 @@
         </span>
         <span class="profil_pic">
             <img src={{user.prof_img}} alt="image de profile" id="image_profile"> 
-            <i class="fa fa-pen" id="pen"></i>  
+            <i class="fa fa-pen" id="pen"><input type="file" name="profile" id="prof-change" accept="image/*"> </i>
+             
         </span>
-        <h2 id="name_profile">{{user.name}} {{user.prenom}}</h2>
-        <h4 id="email_profile">{{user.email}}</h4>
+        <h5>@{{user.user_name}}</h5>
+        <h2 id="name_profile">{{user.name}} {{user.prenom}} </h2>
+        <p class="error"></p>
+        <h4 id="email_profile">{{user.email}} </h4>
+        <p class="error"></p>
+        <button id="update-button">Modifier</button>
         <ul class="socials_list">
             {{#each links}}
                 <li>
@@ -31,7 +36,7 @@
             </select>
             <input type="text" name="titre" id="title" placeholder="Titre" required>
             <input type="text" name="lien" id="link" placeholder="Coller le lien ici" required>
-            <p class="error">une erreure s'est produite</p>
+            <p class="error"></p>
         </form>
         <section>
             <table>
@@ -63,7 +68,7 @@
                 <input type="button" name="supprimer lien" id="delete" value="SUPPRIMER">
             </div>
         </section>
-        <p class="error">une erreure s'est produite</p>
+        <p class="error"></p>
     </div>
     <ul class="middle">
             {{#each links}}
@@ -78,4 +83,15 @@
     <div class="bottom">
         <p>généré avec <a href="/login"><img src="../assets/linkme_lin.png" alt="logo linkme" class="logo"></a> @allrightsreserved</p>
     </div>
+    <form class="update-user">
+        <h2>MODIFIER</h2>
+        <Select id="updated-alias">
+            <option value="name">Name</option>
+            <option value="prenom">Prenom</option>
+            <option value="email">Email</option>
+        </Select>
+        <input type="text" name="email" id="update" placeholder="exemple">
+        <p class="error"></p>
+        <button type="submit">Valider</button>
+    </form>
 </main>

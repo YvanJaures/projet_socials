@@ -22,9 +22,18 @@ model User{
   email         String?
   password      String?
   Link          Link[]
+  Image         Image?
 
 }
+model Image{
+  id            Int @id @default(autoincrement())
+  name          String?
+  data          Bytes?
+  type          String?
+  id_user       Int?      @unique
+  User          User?     @relation(fields:[id_user],references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_User_Image")     
 
+}
 model Icon{
   id            Int @id @default(autoincrement())
   title         String?
