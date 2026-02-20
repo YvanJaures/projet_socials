@@ -19,12 +19,30 @@ const modifyUserB=document.getElementById('update-button')
 const formUser=document.getElementsByClassName('update-user')[0]
 const modifyUserI=document.getElementById('update')
 const selectUser=document.getElementById('updated-alias')
+const popUp=document.getElementsByClassName('pop-up')[0]
+const popMessage=document.getElementById('mess')
+const popJauge=document.getElementById('range')
 
 const client=await getUser()
 const source=new EventSource('/api/stream')
 let id=0
 let selected={}
 
+async function showMessage(message){
+    popMessage.textContent=message
+    popJauge.style.width='100%'
+    popUp.classList.add('show')
+    setTimeout(()=>{
+        for(let i=100;i>=0;i-=10){
+
+            popJauge.style.width=i+"%"
+        }
+    },500) 
+    setTimeout(()=>{
+       popUp.classList.remove('show')
+    },5500)   
+}
+showMessage('Bienvenue '+client.name)
 const nightMode=document.getElementsByClassName('fa-moon')[0]
 const share=document.getElementsByClassName('fa-share')[0]
 let mode='day'
@@ -46,7 +64,7 @@ nightMode.addEventListener('click',(e)=>{
 share.addEventListener('click',async (e)=>{
     if(client){
         await navigator.clipboard.writeText(window.location.host+'/'+client.user_name)
-            alert('copier')
+            showMessage('Url copier dans le presse papier')
         return
     }
     await navigator.clipboard.writeText(window.location.href)
@@ -153,7 +171,7 @@ async function deleteLink(){
         body:JSON.stringify({id})
     })
     if(response.ok){
-        alert('suppression')
+        showMessage('Lien supprimé avec succès')
     }
 }
 export async function getUser(){
@@ -180,7 +198,7 @@ async function addLink(){
         body:JSON.stringify({title,url,icon,id_user})
     })
     if(response.ok){
-        alert('Created link')
+        showMessage('Lien créé avec succès')
         titleI.textContent=""
         linkI.textContent=""
     }
@@ -200,7 +218,7 @@ async function updateLink(){
         body:JSON.stringify({id,title})
     })
     if(response.ok){
-        alert('modification de titre')
+        showMessage('Modification de titre avec succès')
         editI.value=""
     }
 }
@@ -228,7 +246,7 @@ async function updateUser(){
         body:JSON.stringify({user_name,alias,new_info})
     })
     if(response.ok){
-        alert('modifier user')
+        showMessage('Modification de compte éffectuer avec succès')
         modifyUserB.classList.remove('hide')
         formUser.classList.remove('show')
         selectUser.value=""
@@ -243,7 +261,7 @@ async function addImage(name,data,type,id_user){
         body:JSON.stringify({name,data,type,id_user})
     })
     if(response.ok){
-        alert('ajout de photo')
+        showMessage('ajout de photo')
     }
 }
 async function updateImage(data,type,id_user){
@@ -257,7 +275,7 @@ async function updateImage(data,type,id_user){
     body: data
   })
     if(response.ok){
-        alert('modif de photo')
+        showMessage('Image de profil modifié')
     }
 }
 

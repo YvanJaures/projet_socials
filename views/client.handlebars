@@ -6,8 +6,8 @@
         </span>
         <span class="profil_pic">
             <img src={{imgUrl}} alt="image de profile" id="image_profile"> 
-            <i class="fa fa-pen" id="pen"><input type="file" name="profile" id="prof-change" accept="image/*"> </i>
-             
+            <i class="fa fa-pen" id="pen"></i>
+            <input type="file" name="profile" id="prof-change" accept="image/*"> 
         </span>
         <h5>@{{user.user_name}}</h5>
         <h2 id="name_profile">{{user.name}} {{user.prenom}} </h2>
@@ -95,3 +95,9 @@
         <button type="submit">Valider</button>
     </form>
 </main>
+    <div class="pop-up">
+        <p id="mess">
+            Succés
+        </p>
+        <p id="range">.</p>
+    </div>
