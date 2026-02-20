@@ -1,6 +1,15 @@
 const listUl=document.getElementsByClassName('middle')[0]
+const imgP=document.getElementById('image_profile')
 const source=new EventSource('/api/stream')
 
+source.addEventListener('updated-image',(e)=>{
+    const data=(JSON.parse(e.data)).data
+    if(data){
+        imgP.src=data.data
+        return
+    }
+    console.log('pas de donnée')
+})
 source.addEventListener('added-link',(e)=>{
     const data=(JSON.parse(e.data)).data
     listUl.innerHTML+=`

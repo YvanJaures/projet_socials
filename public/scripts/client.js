@@ -82,7 +82,7 @@ formUser.addEventListener('submit',(e)=>{
     e.preventDefault()
     updateUser()
 })
-imgI.addEventListener('change',()=>{
+imgI.addEventListener('change',async (e)=>{
     e.preventDefault()
     const img=imgI.files[0]
     if(!img){
@@ -91,11 +91,8 @@ imgI.addEventListener('change',()=>{
     if(!img.type.startsWith('image/')){
         return
     }
-    const reader=new FileReader()
-    reader.onloadend=async ()=>{
-        const base64Image=reader.result.split(',')[1]
-    }
-    const url=URL.createObjectURL(img)
+    const data=await img.arrayBuffer()
+    await updateImage(data,img.type,client.id_user)
 })
 source.addEventListener('added-link',(e)=>{
     const data=(JSON.parse(e.data)).data
@@ -139,6 +136,14 @@ source.addEventListener('updated-user',(e)=>{
             document.getElementById('name_profile').textContent=data.new_info+' '+client.prenom
             break
     }
+})
+source.addEventListener('updated-image',(e)=>{
+    const data=(JSON.parse(e.data)).data
+    if(data){
+        imgP.src=data.data
+        return
+    }
+    console.log('pas de donnée')
 })
 async function deleteLink(){
     id=Number.parseInt(selected.id)
@@ -229,6 +234,30 @@ async function updateUser(){
         selectUser.value=""
         modifyUserI.value=""
 
+    }
+}
+async function addImage(name,data,type,id_user){
+    const response=await fetch('/api/image/add',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,data,type,id_user})
+    })
+    if(response.ok){
+        alert('ajout de photo')
+    }
+}
+async function updateImage(data,type,id_user){
+    const response=await fetch('/api/image/update', {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/octet-stream",
+      "X-Mime-Type": type,
+      "X-id":id_user
+    },
+    body: data
+  })
+    if(response.ok){
+        alert('modif de photo')
     }
 }
 

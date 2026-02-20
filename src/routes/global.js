@@ -15,10 +15,12 @@ router.get('/user/id',globalController.getUserByIdC)
 
 router.post('/user/add',globalController.addUserC)
 router.post('/link/add',globalController.addLinkC)
+router.post('/image/add',globalController.addImageC)
 
 router.patch('/user/update',globalController.updateUserC)
 router.patch('/user/update/password',globalController.updatePasswordC)
 router.patch('/link/update',globalController.updateLinkC)
+router.patch('/image/update',globalController.updateImageC)
 
 router.delete('/user/delete',globalController.deleteUserC)
 router.delete('/link/delete',globalController.deleteLinkC)

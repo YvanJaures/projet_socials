@@ -76,7 +76,7 @@ i{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    
+    border-radius: 50%;
     
 }
 #name_profile{

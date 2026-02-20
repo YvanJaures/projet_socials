@@ -3,7 +3,9 @@ import passport from 'passport';
 import 'dotenv/config'
 import {getUserByName,getUserById,addUser,
     updateUser,updatePassword,addLink,updateLink,
-    deleteUser,deleteLink,getIcons,getLinks,getUsers} from '../models/global.js'
+    deleteUser,deleteLink,getIcons,getLinks,getUsers,
+    addImage,
+    updateImage} from '../models/global.js'
 
 export const stream=async (request, response) => {
     response.initStream();    
@@ -123,6 +125,43 @@ export const addLinkC=async(request,response)=>{
                 icon:request.body.icon,
                 id_user:request.body.id_user}
         },'added-link')
+        response.status(201).end()
+    }
+    catch(error){
+        response.status(400).end()
+        console.log(error)
+    }
+}
+export const addImageC=async (request,response)=>{
+    try{
+        await addImage(request.body.name,
+            request.body.data,
+            request.body.type,
+            request.body.id_user
+        )
+        response.status(201).end()
+    }
+    catch(error){
+        response.status(400).end()
+        console.log(error)
+    }
+}
+export const updateImageC=async (request,response)=>{
+    try{
+        const img = request.body 
+        const type = request.headers["x-mime-type"]
+        const id=parseInt(request.headers["x-id"])
+        await updateImage(img,type,id
+        )
+
+        const imgUrl=`data:${type};base64,${img.toString('base64')}`
+        response.pushJson({
+            data:{
+                data:imgUrl,
+                type:type,
+                id_user:id
+            }
+        },'updated-image')
         response.status(201).end()
     }
     catch(error){

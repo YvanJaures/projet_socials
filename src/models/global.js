@@ -23,7 +23,8 @@ export async function getUsers(){
                     icon:true,
                     url:true
                 }
-            }
+            },
+            Image:true
         }
     })
 }
@@ -48,7 +49,8 @@ export async function getUserByName(user_name){
                     icon:true,
                     url:true
                 }
-            }
+            },
+            Image:true
         }
     })
 }
@@ -158,7 +160,7 @@ export async function addLink(title,url,icon,id_user){
     })
 }
 export async function addImage(name,data,type,id_user){
-    const index=prisma.image.create({
+    const index=await prisma.image.create({
         data:{
             name:name,
             data:data,
@@ -168,13 +170,12 @@ export async function addImage(name,data,type,id_user){
     })
     return index
 }
-export async function updateImage(name,data,type,id_user){
-    prisma.image.update({
+export async function updateImage(data,type,id_user){
+    await prisma.image.update({
         where:{
             id_user:id_user
         },
         data:{
-            name:name,
             data:data,
             type:type
         }

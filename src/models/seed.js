@@ -81,6 +81,7 @@ async function seed() {
 seed();
 */
 async function uploadImages() {
+  await prisma.image.deleteMany()
   try {
     // Liste des images à uploader
     const imageData={
@@ -98,6 +99,8 @@ async function uploadImages() {
       // Lire l'image et convertir en base64
       const imageBuffer = fs.readFileSync(imagePath);
       const base64Image = imageBuffer.toString('base64');
+      const imgB=Buffer.from(base64Image,'base64')
+      
       
       // Détecter le type d'image
       const imageType = imageData.name.endsWith('.png') ? 'image/png' : 'image/jpeg';
@@ -106,7 +109,7 @@ async function uploadImages() {
       const produit = await prisma.image.create({
         data: {
           name:'profile',
-          data: base64Image,
+          data: imageBuffer,
           type: imageType,
           id_user:1
         }
