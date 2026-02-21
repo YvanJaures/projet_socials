@@ -11,6 +11,7 @@ router.get('/links',globalController.getLinksC)
 router.get('/users',globalController.getUsersC)
 router.get('/user',globalController.getUser)
 router.get('/user/name',globalController.getUserByNameC)
+router.get('/user/user_names',globalController.getUsersNameC)
 router.get('/user/id',globalController.getUserByIdC)
 
 router.post('/user/add',globalController.addUserC)

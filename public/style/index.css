@@ -2,11 +2,8 @@
     --color_back:rgba(255, 255, 255, 0.053);
     --primary_color: rgb(0, 145, 255)  ;
     --primary_hover: rgb(0, 106, 255);
-    --error_message:rgb(243, 45, 45);
+    --error_message:rgb(249, 0, 0);
     --background:url(/assets/Desert_Bloom_Arizona.png);
-}
-html{
-    scroll-behavior: smooth;
 }
 body{
     display: flex;
@@ -18,8 +15,11 @@ body{
     background-repeat: no-repeat;
     background-attachment:fixed;
     height: 100vh;
+    min-width:100%;
     max-width: 1400px;
     overflow: scroll;
+    margin: 0;
+    scroll-behavior: smooth;
 }
 main{
     display: flex;
@@ -32,17 +32,25 @@ main{
     margin-top: 1rem;
     gap: 30px;
     width: 60%;
-    background-color: rgba(255, 255, 255, 0.053);
-    backdrop-filter: blur(5px);
-    border: 0.5px solid white;
+    background: rgba(255, 255, 255, 0.153);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
+     inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05);
     border-radius: 15px;
     height: auto;
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     max-width: 1440px;
 }
-img{
-    width: 150px;
+#image_profile{
+    border-radius: 50%;
+    height: 10rem;
+    width: 10rem;
+    border: 2px solid transparent;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 i{
     color: white;
@@ -70,6 +78,7 @@ i{
     width: 90%;
     
 }
+/*
 #image_profile{
     flex: 40%;
     display: flex;
@@ -78,7 +87,7 @@ i{
     align-items: center;
     border-radius: 50%;
     
-}
+}*/
 #name_profile{
     flex: 30%;
     display: flex;
@@ -135,8 +144,13 @@ ul{
         margin-left:12px;
         list-style: none;
         width: 95%;
-        border: 0.5px solid white;
         border-radius: 15px;
+        background: rgba(255, 255, 255, 0.153);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.05);
 
     }
 }
@@ -179,7 +193,6 @@ a:hover,li:hover,i,select,input[Type="submit"],input[Type="button"]{
     display: none;
     text-align: center;
     color: var(--error_message);
-    border: 1px solid red;
 }
 .error.show{
     display: block;

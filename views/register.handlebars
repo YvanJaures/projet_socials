@@ -1,31 +1,47 @@
     <div class="login-container register-container">
         <form class="login-form">
             <h2>Créer un compte <sup> <img src="./assets/linkme_lin.png" alt="logo linkme"></sup></h2>
-            <p>Rejoignez-nous en quelques clics</p>
-
-            <div class="input-row">
+            <div class="input-row top">
                 <div class="input-group">
-                    <label for="fullname">Nom d'utilisateur</label>
-                    <input type="text" id="fullname" placeholder="exemple156" required>
+                    <label for="user_name">Nom d'utilisateur</label>
+                    <input type="text" id="user_name" placeholder="exemple156" required>
+                    <p class="error">erreur</p>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="exemple@mail.com" required>
+                    <p class="error">erreur</p>
                 </div>
             </div>
-
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="exemple@mail.com" required>
+            <div class="input-row midd">
+                <div class="input-group">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" placeholder="nom" required>
+                    <p class="error">erreur</p>
+                </div>
+                <div class="input-group">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" id="prenom" placeholder="prenom" required>
+                    <p class="error">erreur</p>
+                </div>
             </div>
-
             <div class="input-row split">
                 <div class="input-group">
                     <label for="password">Mot de passe</label>
                     <input type="password" id="password" placeholder="••••••••" required>
+                    <p class="error">erreur</p>
                 </div>
                 <div class="input-group">
                     <label for="confirm-password">Confirmation</label>
                     <input type="password" id="confirm-password" placeholder="••••••••" required>
+                    <p class="error">erreur</p>
                 </div>
             </div>
-
+            <label>Image profil</label>
+            <div class="input-row img">
+                <i  class="fa fa-upload"></i>
+                <input type="file" name="image" id="img_profil" accept="image/*" required>
+            </div>
             <div class="form-options terms">
                 <label>
                     <input type="checkbox" required> J'accepte les <a href="#">Conditions d'Utilisation</a>

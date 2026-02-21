@@ -18,6 +18,7 @@ const deleteB=document.getElementById('delete')
 const modifyUserB=document.getElementById('update-button')
 const formUser=document.getElementsByClassName('update-user')[0]
 const modifyUserI=document.getElementById('update')
+const cancelUpdate=document.getElementsByClassName('fa-close')[0]
 const selectUser=document.getElementById('updated-alias')
 const popUp=document.getElementsByClassName('pop-up')[0]
 const popMessage=document.getElementById('mess')
@@ -42,10 +43,19 @@ async function showMessage(message){
        popUp.classList.remove('show')
     },5500)   
 }
-showMessage('Bienvenue '+client.name)
 const nightMode=document.getElementsByClassName('fa-moon')[0]
 const share=document.getElementsByClassName('fa-share')[0]
 let mode='day'
+
+showMessage('Bienvenue '+client.name)
+
+cancelUpdate.addEventListener('click',(e)=>{
+    e.preventDefault()
+    selectUser.value=""
+    modifyUserI.value=""
+    modifyUserB.classList.remove('hide')
+    formUser.classList.remove('show')
+})
 nightMode.addEventListener('click',(e)=>{
     if(mode==='day'){
         mode='night'
@@ -71,10 +81,7 @@ share.addEventListener('click',async (e)=>{
     
 })
 
-
-
 for(let i=0;i<checksI.length;i++){
-
     checksI[i].addEventListener('change',()=>{
         if(checksI[i].checked){
             selected= lignesI[i]
@@ -82,11 +89,15 @@ for(let i=0;i<checksI.length;i++){
         }
     })
 }
+
 modifyUserB.addEventListener('click',(e)=>{
     formUser.classList.add('show')
     modifyUserB.classList.add('hide')
 })
 deleteB.addEventListener('click',(e)=>{
+    if(!selected.id){
+        return
+    }
     deleteLink()
 })
 modifyB.addEventListener('click',(e)=>{
@@ -184,13 +195,16 @@ async function addLink(){
     errorsI[2].classList.remove('show')
     const title=titleI.value
     const url=linkI.value
-    const icon=selects.value.toLowerCase()
+    let icon=selects.value.toLowerCase()
     const id_user=client.id_user
   
     if(!texteEstValide(title) || !texteEstValide(url)){
         errorsI[2].textContent="valeure incorrecte"
         errorsI[2].classList.add('show')
         return
+    }
+    if(icon=="autre"){
+        icon="link"
     }
     const response=await  fetch('/api/link/add',{
         method:'POST',
@@ -252,16 +266,6 @@ async function updateUser(){
         selectUser.value=""
         modifyUserI.value=""
 
-    }
-}
-async function addImage(name,data,type,id_user){
-    const response=await fetch('/api/image/add',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,data,type,id_user})
-    })
-    if(response.ok){
-        showMessage('ajout de photo')
     }
 }
 async function updateImage(data,type,id_user){

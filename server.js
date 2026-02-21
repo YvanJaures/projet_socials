@@ -65,11 +65,10 @@ const publicPath = process.env.NODE_ENV === 'production'
 
 app.use(express.static(publicPath));
 
-const users=await getUsers()
+let users=await getUsers()
 for(const user of users){
-    const imgBase=user.Image.data.toString('base64')
     let imageUrl = null
-    if (user.Image.data) {
+    if (user.Image) {
       const buffer = user.Image.data instanceof Buffer
         ? user.Image.data
         : Buffer.from(user.Image.data)
@@ -77,8 +76,10 @@ for(const user of users){
       imageUrl = `data:${user.Image.type};base64,${buffer.toString('base64')}`
     }
     app.get(`/${user.user_name}`,async(request,response)=>{
+        users=await getUsers()
         response.status(200).render('accueil',{
             titre: `${user.name.toUpperCase()}`,
+            styles:['/style/index.css'],
             scripts:['/scripts/accueil.js'],
             imgUrl:imageUrl,
             links:user.Link,
@@ -91,9 +92,8 @@ for(const user of users){
 app.get('/',connecterPage, async (request, response) => {
     const icons=await getIcons()
     const user=request.user
-    const imgBase=user.Image.data.toString('base64')
     let imageUrl = null
-    if (user.Image.data) {
+    if (user.Image) {
       const buffer = user.Image.data instanceof Buffer
         ? user.Image.data
         : Buffer.from(user.Image.data)
@@ -102,7 +102,7 @@ app.get('/',connecterPage, async (request, response) => {
     }
     response.status(200).render('client', {
         titre: 'Socials',
-        styles: ['/style/client.css'],
+        styles: ['/style/client.css','/style/index.css'],
         scripts: ['/scripts/client.js'],
         imgUrl:imageUrl,
         links:request.user.Link,

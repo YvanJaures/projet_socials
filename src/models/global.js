@@ -69,7 +69,7 @@ export async function addUser(user_name,name,prenom,prof_img,email,password){
             user_name:user_name,
             name:name,
             prenom:prenom,
-            created:date.toLocaleDateString(),
+            created:date,
             prof_img:prof_img,
             email:email,
             password:hash_password

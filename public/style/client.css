@@ -8,6 +8,8 @@
 }
 .error{
     display: none;
+    margin: 0;
+    padding: 2px;
 }
 #image_profile{
     border-radius: 50%;
@@ -19,7 +21,7 @@
 }
 .fa-pen{
     position: absolute;
-    transform: translate(7rem,-2.2rem);
+    transform: translate(4rem,2rem);
     background-color: var(--primary_color);
     padding: 5px;
     display: flex;
@@ -31,13 +33,12 @@
 
 }
 #prof-change{
+    position: absolute;
     opacity: 0;
-    transform: translate(7rem,-2.2rem);
+    transform: translate(4rem,2rem);
     background-color: var(--primary_color);
     width:2.3rem;
     height: 2.3rem;
-    margin: 0;
-    padding: 0;
     border-radius: 50%;
 }
 #file-upload-button:hover{
@@ -45,6 +46,13 @@
 }
 #prof-change:hover{
     cursor: pointer;
+}
+.profil_pic{
+    width: 100%;
+    display: flex;
+    flex-direction:column ;
+    justify-content: center;
+    align-items: center;
 }
 .profil_pic:hover i{
     background-color: var(--primary_hover);
@@ -76,11 +84,16 @@ select{
     align-items: center;
     flex-grow: 1;
     width: 95%;
-    border: 0.5px solid white;
     border-radius: 10px;
     text-align: center;
     color: white;
-    background-color: var(--color_back);
+    background: rgba(255, 255, 255, 0.153);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
+     inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+    outline: none;
 }
 #title{
     width: 100%;
@@ -94,7 +107,6 @@ select{
     align-items: center;
     flex-grow: 1;
     width: 95%;
-    border: 0.5px solid white;
     border-radius: 10px;
     background-color: var(--color_back);
     text-align: center;
@@ -111,15 +123,9 @@ select{
     align-items: center;
     flex-grow: 1;
     width: 95%;
-    border: 0.5px solid white;
     border-radius: 10px;
     background-color: var(--color_back);
     text-align: center;
-}
-input{
-    color: white;
-    font-size: large;
-    outline: none;
 }
 select{
     font-size: large;
@@ -167,7 +173,7 @@ caption {
     margin-bottom: 10px;
 }
 th, td {
-    border: 0.5px solid white; /* Bordure noire */
+    border: 0.5px solid white;
     padding: 8px;
     text-align: center;
     cursor: pointer;
@@ -194,13 +200,13 @@ tr:has(input[type="checkbox"]:checked){
     justify-content: space-evenly;
     margin-top: 10px;
     input{
-        width: 20%;
-        height: 1.5rem;
+        width: 30%;
+        height: 2rem;
         border-radius: 10px;
         color: white;
         background-color: var(--primary_color);
         border: none;
-        font-size: small;
+        font-size: large;
     }
     input:hover{
         background-color: var(--primary_hover);
@@ -210,7 +216,6 @@ tr:has(input[type="checkbox"]:checked){
     width: 40%;
     height: 3rem;
     border-radius: 10px;
-    border: 0.5px solid white;
     border-radius: 10px;
     background-color: var(--color_back);
     text-align: center;
@@ -227,7 +232,6 @@ tr:has(input[type="checkbox"]:checked){
     align-items: center;
     flex-grow: 1;
     width: 95%;
-    border: 0.5px solid white;
     border-radius: 10px;
     background-color: var(--color_back);
     text-align: center;
@@ -244,7 +248,6 @@ tr:has(input[type="checkbox"]:checked){
     align-items: center;
     flex-grow: 1;
     width: 95%;
-    border: 0.5px solid white;
     border-radius: 10px;
     background-color: var(--color_back);
     text-align: center;
@@ -261,19 +264,18 @@ tr:has(input[type="checkbox"]:checked){
     align-items: center;
     flex-grow: 1;
     width: 95%;
-    border: 0.5px solid white;
     border-radius: 10px;
     background-color: var(--color_back);
     text-align: center;
 }
-button{
+#update-button,button{
     background-color: var(--primary_color);
     color: white;
     border: none;
     border-radius: 5px;
     width: 80%;
     height: 1.5rem;
-    font-size: medium;
+    font-size: 1rem;
 }
 button:hover{
     cursor:pointer;
@@ -291,8 +293,24 @@ button:hover{
     position: absolute;
     top: 0;
     margin-top: 41px;
-    background-color: black;
-    backdrop-filter: blur(50px);
+    background: transparent;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
+     inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+}
+input{
+    background: rgba(255, 255, 255, 0.153);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
+     inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+    color: white;
+    font-size: large;
+    outline: none;
+
 }
 #update-button.hide{
     display: none;
@@ -354,7 +372,7 @@ h5{
         overflow: scroll;
     }
     .validate input{
-        font-size: 0.5rem;
+        font-size: medium;
     }
     .edit_input{
         flex-direction: column;
@@ -362,6 +380,9 @@ h5{
         input{
             width: 90%;
         }
+    }
+    #update-button{
+        font-size: medium;
     }
 }
 @media(min-width:1440px){

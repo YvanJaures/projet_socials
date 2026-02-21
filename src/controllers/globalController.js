@@ -40,6 +40,15 @@ export const getUsersC=async(request,response)=>{
         console.log(error)
     }
 }
+export const getUsersNameC=async (request,response)=>{
+    try{
+        const usersName=(await getUsers()).map(user=>user.user_name)
+        response.status(200).json(usersName)
+    }catch(error){
+        response.status(400).end()
+        console.log(error)
+    }
+}
 export const getUser=async(request,response)=>{
     try{
         const user=request.user
@@ -71,6 +80,7 @@ export const getUserByIdC=async(request,response)=>{
 export const addUserC=async(request,response)=>{
     try{
         await addUser(request.body.user_name,
+            request.body.name,
             request.body.prenom,
             request.body.prof_img,
             request.body.email,
@@ -134,11 +144,12 @@ export const addLinkC=async(request,response)=>{
 }
 export const addImageC=async (request,response)=>{
     try{
-        await addImage(request.body.name,
-            request.body.data,
-            request.body.type,
-            request.body.id_user
+        await addImage(request.headers["x-name"],
+            request.body,
+            request.headers["x-mime-type"],
+            parseInt(request.headers["x-id"])
         )
+        
         response.status(201).end()
     }
     catch(error){
