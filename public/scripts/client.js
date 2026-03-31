@@ -87,6 +87,10 @@ for(let i=0;i<checksI.length;i++){
             selected= lignesI[i]
             editI.value=lignesI[i].children[2].textContent
         }
+        else{
+            selected={}
+            editI.value=""
+        }
     })
 }
 

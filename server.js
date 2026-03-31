@@ -12,7 +12,7 @@ import memorystore from 'memorystore'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import router from './src/routes/global.js'
-import { getIcons, getUsers } from './src/models/global.js'
+import { getIcons, getUserByName, getUsers } from './src/models/global.js'
 import { connecterPage, deConnecterPage } from './src/middlewares/auth.js'
 // Defini si nous sommes en production ou en developpement
 const dev = process.env.NODE_ENV !== "production";
@@ -76,7 +76,6 @@ for(const user of users){
       imageUrl = `data:${user.Image.type};base64,${buffer.toString('base64')}`
     }
     app.get(`/${user.user_name}`,async(request,response)=>{
-        users=await getUsers()
         response.status(200).render('accueil',{
             titre: `${user.name.toUpperCase()}`,
             styles:['/style/index.css'],
@@ -87,7 +86,27 @@ for(const user of users){
         })
     })
 }
+app.get(`/MyLinks/:user_name`,async(request,response)=>{
+    if(request.params.user_name==="login" || request.params.user_name==="signup") return
+    const user=await getUserByName(request.params.user_name)
+    if(!user) return response.status(404).send('User not found')
+    let imageUrl = null
+    if (user?.Image) {
+      const buffer = user.Image.data instanceof Buffer
+        ? user.Image.data
+        : Buffer.from(user.Image.data)
 
+      imageUrl = `data:${user.Image.type};base64,${buffer.toString('base64')}`
+    }
+    response.status(200).render('accueil',{
+        titre: `${user.name.toUpperCase()}`,
+        styles:['/style/index.css'],
+        scripts:['/scripts/accueil.js'],
+        imgUrl:imageUrl,
+        links:user.Link,
+        user:user
+    })
+})
 /**/
 app.get('/',connecterPage, async (request, response) => {
     const icons=await getIcons()

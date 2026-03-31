@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mssql
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+      SESSION_SECRET: efybunef::dzz:!zkzdmzd
+      DATABASE_URL: sqlserver://mssql:1433;database=socials;user=sa;password=Yvanjaures36908?!;encrypt=true;trustServerCertificate=true
+      DB_SERVER: mssql
+      DB_DATABASE: socials
+      DB_USER: sa
+      DB_PASSWORD: Yvanjaures36908?!
+      DB_NAME: socials
+      DB_PORT: 1433
+      PRISMA_CLIENT_ENGINE_TYPE: binary
+    networks:
+      - socials-network
+    restart: on-failure:5
+    command: sh -c "sleep 45 && npx prisma generate && npx prisma db push && node server.js"
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Yvanjaures36908?!
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - socials-network
+      
+volumes:
+  mssql_data:
+
+networks:
+  socials-network:
+    driver: bridge

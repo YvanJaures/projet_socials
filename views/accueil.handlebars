@@ -1,33 +1,45 @@
 <main>
-        <div class="top">
-            <span class="options">
-                <i class="fa fa-moon"></i>
-                <i class="fa fa-share"></i>
-            </span>
-            <img src={{imgUrl}} alt="image de profile" id="image_profile">
-            <h2 id="name_profile">{{user.name}} {{user.prenom}}</h2>
-            <h4 id="email_profile">{{user.email}}</h4>
-            <ul class="socials_list">
-                {{#each links}}
-                <li>
-                    <a href="{{this.url}}">
-                        <i class="fa fa-{{this.icon}}"></i>
-                    </a>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-        <ul class="middle">
-            {{#each links}}
-            <li class="link" id="li{{this.id}}">
-                <a href="{{this.url}}">
-                    <i class="fa fa-{{this.icon}}"></i>
-                    <p>{{this.title}}</p>
-                </a>
-            </li>
-            {{/each}}
-        </ul>
-        <div class="bottom">
-            <p>généré avec <a href="/login"><img src="../assets/linkme_lin.png" alt="logo linkme" class="logo"></a> @allrightsreserved</p>
-        </div>
-    </main>
+  <div class="top">
+    <span class="options">
+      <i class="fa fa-moon"></i>
+      <i class="fa fa-share"></i>
+    </span>
+    <img src={{imgUrl}} alt="image de profile" id="image_profile" />
+    <h2 id="name_profile">{{user.name}} {{user.prenom}}</h2>
+    <h4 id="email_profile">{{user.email}}</h4>
+    <ul class="socials_list">
+      {{#each links}}
+        <li>
+          <a href="{{this.url}}">
+            <i class="fa fa-{{this.icon}}"></i>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  <ul class="middle">
+    {{#each links}}
+      <li class="link" id="li{{this.id}}">
+        <a href="{{this.url}}">
+          <i class="fa fa-{{this.icon}}"></i>
+          <p>{{this.title}}</p>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+  <div class="bottom">
+    <p>généré avec
+      <a href="/login"><img
+          src="../assets/linkme_lin.png"
+          alt="logo linkme"
+          class="logo"
+        /></a>
+      @allrightsreserved</p>
+  </div>
+</main>
+<div class="pop-up">
+  <p id="mess">
+    Succés
+  </p>
+  <p id="range">.</p>
+</div>

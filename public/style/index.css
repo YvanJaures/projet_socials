@@ -200,6 +200,48 @@ a:hover,li:hover,i,select,input[Type="submit"],input[Type="button"]{
 .logo{
     width:80px;
 }
+.pop-up{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    width: 80%;
+    height: 3rem;
+    background-color: white;
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 5px;
+    right: 0;
+    margin-right: 5px;
+    border:3px solid white;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: width 0.5s linear;
+    #mess{
+        flex: 80%;
+        width: 100%;
+        padding: 3px;
+        margin: 0;
+        text-align: center;
+        text-wrap-mode: wrap;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    #range{
+        width: 100%;
+        flex:20%;
+        background: green;
+        color: green;
+        appearance: none;
+        outline: none;
+        margin: 0;
+        transition: width 5s linear ;
+        
+    }
+}
+.pop-up.show{
+    display: flex;
+}
 @media(max-width:768px){
     main{
         width: 95%;
