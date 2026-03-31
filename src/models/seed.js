@@ -2,14 +2,14 @@ import bcrypt from 'bcrypt'
 import {prisma} from '../prisma.js'
 import fs from 'fs'
 import path from 'path';
-/*
+
 async function seed() {
   try {
     console.log('🌱 Début du seeding...');
 
     // Hash du mot de passe avec bcrypt
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash('password123', saltRounds);
+    const hashedPassword = await bcrypt.hash('12345678', saltRounds);
 
     // 1. Créer 1 utilisateur avec mot de passe hashé
     const user = await prisma.user.create({
@@ -24,7 +24,8 @@ async function seed() {
       }
     });
     console.log(`✅ Utilisateur créé: ${user.user_name}`);
-
+    // 1.1 Uploader l'image de profil de l'utilisateur
+    await uploadImages(user.id_user);
     // 2. Créer 15 icônes
     const icons = [
       { title: 'Instagram', icon: 'instagram' },
@@ -79,8 +80,7 @@ async function seed() {
 }
 
 seed();
-*/
-async function uploadImages() {
+async function uploadImages(id) {
   await prisma.image.deleteMany()
   try {
     // Liste des images à uploader
@@ -111,7 +111,7 @@ async function uploadImages() {
           name:'profile',
           data: imageBuffer,
           type: imageType,
-          id_user:1
+          id_user:id
         }
       });
 
@@ -124,5 +124,3 @@ async function uploadImages() {
     await prisma.$disconnect();
   }
 }
-
-uploadImages();
