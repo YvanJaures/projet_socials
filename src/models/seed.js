@@ -5,6 +5,9 @@ import path from 'path';
 
 async function seed() {
   try {
+    await prisma.link.deleteMany();
+    await prisma.icon.deleteMany();
+    await prisma.user.deleteMany();
     console.log('🌱 Début du seeding...');
 
     // Hash du mot de passe avec bcrypt
