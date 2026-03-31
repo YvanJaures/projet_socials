@@ -7,6 +7,7 @@ async function seed() {
   try {
     await prisma.link.deleteMany();
     await prisma.icon.deleteMany();
+    await prisma.image.deleteMany();
     await prisma.user.deleteMany();
     console.log('🌱 Début du seeding...');
 
@@ -84,7 +85,6 @@ async function seed() {
 
 seed();
 async function uploadImages(id) {
-  await prisma.image.deleteMany()
   try {
     // Liste des images à uploader
     const imageData={
