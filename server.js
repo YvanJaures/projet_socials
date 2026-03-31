@@ -64,7 +64,7 @@ const publicPath = process.env.NODE_ENV === 'production'
     : path.join(__dirname, 'public');
 
 app.use(express.static(publicPath));
-
+/*
 let users=await getUsers()
 for(const user of users){
     let imageUrl = null
@@ -86,6 +86,7 @@ for(const user of users){
         })
     })
 }
+*/
 app.get(`/MyLinks/:user_name`,async(request,response)=>{
     if(request.params.user_name==="login" || request.params.user_name==="signup") return
     const user=await getUserByName(request.params.user_name)
