@@ -295,6 +295,17 @@ DATABASE_URL="sqlserver://<HOST>:<PORT>;database=<DB_NAME>;user=<USER>;password=
 ```
 
 ---
+PORT=********
+SESSION_SECRET=********
+DATABASE_URL=**********
+DB_SERVER=******
+DB_DATABASE=*******
+DB_USER=*******
+DB_PASSWORD=*********
+DB_NAME=******
+DB_PORT=******
+PRISMA_CLIENT_ENGINE_TYPE=*****
+RENDER_URL=**********
 
 ## Auteur
 
