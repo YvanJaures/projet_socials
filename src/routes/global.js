@@ -55,7 +55,7 @@ router.get('/user/id',globalController.getUserByIdC)
 router.post('/user/add',globalController.addUserC)
 
 // Ajout d'un nouveau lien social
-router.post('/link/add',globalController.addLinkC)
+router.post('/link/add',connecterApi,globalController.addLinkC)
 
 // Ajout d'une image de profil
 router.post('/image/add',globalController.addImageC)
@@ -65,26 +65,26 @@ router.post('/image/add',globalController.addImageC)
 // ============================================
 
 // Mise à jour des informations utilisateur
-router.patch('/user/update',globalController.updateUserC)
+router.patch('/user/update',connecterApi,globalController.updateUserC)
 
 // Mise à jour du mot de passe
-router.patch('/user/update/password',globalController.updatePasswordC)
+router.patch('/user/update/password',connecterApi,globalController.updatePasswordC)
 
 // Mise à jour d'un lien
-router.patch('/link/update',globalController.updateLinkC)
+router.patch('/link/update',connecterApi,globalController.updateLinkC)
 
 // Mise à jour de l'image de profil
-router.patch('/image/update',globalController.updateImageC)
+router.patch('/image/update',connecterApi,globalController.updateImageC)
 
 // ============================================
 // ROUTES DELETE (SUPPRESSION)
 // ============================================
 
 // Suppression d'un utilisateur
-router.delete('/user/delete',globalController.deleteUserC)
+router.delete('/user/delete',connecterApi,globalController.deleteUserC)
 
 // Suppression d'un lien
-router.delete('/link/delete',globalController.deleteLinkC)
+router.delete('/link/delete',connecterApi,globalController.deleteLinkC)
 
 // ============================================
 // ROUTES D'AUTHENTIFICATION
