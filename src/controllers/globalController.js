@@ -79,6 +79,7 @@ export const getUserByIdC=async(request,response)=>{
 }
 export const addUserC=async(request,response)=>{
     try{
+        //
         await addUser(request.body.user_name,
             request.body.name,
             request.body.prenom,
