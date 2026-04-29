@@ -1,21 +1,47 @@
+/**
+ * ============================================
+ * SEED - Script d'initialisation de la base de données
+ * ============================================
+ * 
+ * Ce fichier remplit la base de données avec des données initiales
+ * pour le développement et les tests. Il crée:
+ * - Un utilisateur de test (johndoe)
+ * - 15 icônes pour les réseaux sociaux
+ * - 5 liens sociaux pour l'utilisateur
+ * - Une image de profil
+ * 
+ * @description Script de seeding pour la base de données
+ * @requires bcrypt (hachage des mots de passe)
+ * @requires prisma (ORM)
+ * @requires fs (lecture des fichiers)
+ * @requires path (manipulation des chemins)
+ */
+
 import bcrypt from 'bcrypt'
 import {prisma} from '../prisma.js'
 import fs from 'fs'
 import path from 'path';
 
+/**
+ * Fonction principale de seeding
+ * Crée les données initiales dans la base de données
+ */
 async function seed() {
   try {
+    // Nettoyage des tables existantes (ordre important pour les clés étrangères)
     await prisma.link.deleteMany();
     await prisma.icon.deleteMany();
     await prisma.image.deleteMany();
     await prisma.user.deleteMany();
     console.log('🌱 Début du seeding...');
 
-    // Hash du mot de passe avec bcrypt
+    // Hachage du mot de passe avec bcrypt (10 rounds de sel)
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash('12345678', saltRounds);
 
-    // 1. Créer 1 utilisateur avec mot de passe hashé
+    // ============================================
+    // 1. CRÉATION DE L'UTILISATEUR DE TEST
+    // ============================================
     const user = await prisma.user.create({
       data: {
         user_name: 'johndoe',
@@ -28,9 +54,13 @@ async function seed() {
       }
     });
     console.log(`✅ Utilisateur créé: ${user.user_name}`);
-    // 1.1 Uploader l'image de profil de l'utilisateur
+    
+    // Upload de l'image de profil
     await uploadImages(user.id_user);
-    // 2. Créer 15 icônes
+
+    // ============================================
+    // 2. CRÉATION DES ICÔNES
+    // ============================================
     const icons = [
       { title: 'Instagram', icon: 'instagram' },
       { title: 'X', icon: 'x-twitter' },
@@ -47,7 +77,6 @@ async function seed() {
       { title: 'Pinterest', icon: 'pinterest-p' },
       { title: 'Telegram', icon: 'telegram' },
       { title: 'Autre', icon: 'link' }
-
     ];
 
     await prisma.icon.createMany({
@@ -55,7 +84,9 @@ async function seed() {
     });
     console.log(`✅ ${icons.length} icônes créées`);
 
-    // 3. Créer 5 liens pour cet utilisateur
+    // ============================================
+    // 3. CRÉATION DES LIENS SOCIAUX
+    // ============================================
     const links = [
       { title: 'Mon Instagram', url: 'https://instagram.com', icon: 'instagram', id_user: user.id_user },
       { title: 'Mon Twitter', url: 'https://twitter.com', icon: 'x-twitter', id_user: user.id_user },
@@ -69,6 +100,9 @@ async function seed() {
     });
     console.log(`✅ ${links.length} liens créés`);
 
+    // ============================================
+    // RÉSUMÉ DU SEEDING
+    // ============================================
     console.log('\n✨ Seeding terminé avec succès !');
     console.log(`👤 User: ${user.user_name} (ID: ${user.id_user})`);
     console.log(`📧 Email: ${user.email}`);
@@ -83,46 +117,48 @@ async function seed() {
   }
 }
 
+// Lancement du seeding
 seed();
+
+/**
+ * Upload les images de profil depuis le dossier public/assets
+ * @param {number} id - ID de l'utilisateur propriétaire des images
+ */
 async function uploadImages(id) {
   try {
-    // Liste des images à uploader
+    // Configuration de l'image à uploader
     const imageData={
       name:'avatar_prof_1.png',
     }
 
-      // Lire l'image depuis assets
-      const imagePath = path.join(process.cwd(), 'public', 'assets', imageData.name);
-      
-      // Vérifier si le fichier existe
-      if (!fs.existsSync(imagePath)) {
-        console.error(`❌ Image not found: ${imagePath}`);
-      }
-
-      // Lire l'image et convertir en base64
-      const imageBuffer = fs.readFileSync(imagePath);
-      const base64Image = imageBuffer.toString('base64');
-      const imgB=Buffer.from(base64Image,'base64')
-      
-      
-      // Détecter le type d'image
-      const imageType = imageData.name.endsWith('.png') ? 'image/png' : 'image/jpeg';
-
-      // Créer le produit avec l'image
-      const produit = await prisma.image.create({
-        data: {
-          name:'profile',
-          data: imageBuffer,
-          type: imageType,
-          id_user:id
-        }
-      });
-
+    // Chemin absolu vers le fichier image
+    const imagePath = path.join(process.cwd(), 'public', 'assets', imageData.name);
     
+    // Vérification de l'existence du fichier
+    if (!fs.existsSync(imagePath)) {
+      console.error(`❌ Image non trouvée: ${imagePath}`);
+      return;
+    }
 
-    console.log('\n🎉 All images uploaded successfully!');
+    // Lecture du fichier image et conversion en buffer
+    const imageBuffer = fs.readFileSync(imagePath);
+    
+    // Détection du type MIME basé sur l'extension
+    const imageType = imageData.name.endsWith('.png') ? 'image/png' : 'image/jpeg';
+
+    // Création de l'image dans la base de données
+    const produit = await prisma.image.create({
+      data: {
+        name:'profile',
+        data: imageBuffer,
+        type: imageType,
+        id_user:id
+      }
+    });
+
+    console.log('\n🎉 Toutes les images uploadées avec succès !');
   } catch (error) {
-    console.error('❌ Error uploading images:', error);
+    console.error('❌ Erreur lors de l\'upload des images:', error);
   } finally {
     await prisma.$disconnect();
   }

@@ -19,6 +19,7 @@ const modifyUserB=document.getElementById('update-button')
 const formUser=document.getElementsByClassName('update-user')[0]
 const modifyUserI=document.getElementById('update')
 const cancelUpdate=document.getElementsByClassName('fa-close')[0]
+const signOutButton=document.getElementsByClassName('fa-arrow-right-from-bracket')[0]
 const selectUser=document.getElementById('updated-alias')
 const popUp=document.getElementsByClassName('pop-up')[0]
 const popMessage=document.getElementById('mess')
@@ -73,14 +74,25 @@ nightMode.addEventListener('click',(e)=>{
 })
 share.addEventListener('click',async (e)=>{
     if(client){
-        await navigator.clipboard.writeText(window.location.host+'/'+client.user_name)
+        await navigator.clipboard.writeText(window.location.host+'/MyLinks/'+client.user_name)
             showMessage('Url copier dans le presse papier')
         return
     }
     await navigator.clipboard.writeText(window.location.href)
     
 })
-
+signOutButton.addEventListener('click',async (e)=>{
+    try{
+        const response=await fetch('/api/deconnexion',{
+            method:'POST'
+        })
+        if(response.ok){
+            window.location.href='/login'
+        }
+    }catch(error){
+        console.log(error)
+    }
+})
 for(let i=0;i<checksI.length;i++){
     checksI[i].addEventListener('change',()=>{
         if(checksI[i].checked){
